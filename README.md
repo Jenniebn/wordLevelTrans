@@ -8,9 +8,10 @@ This research developed a neural network model using relative word embeddings to
 - `dictionary/`: A directory containing all the scripts needed to scrape and process the 4 online dictionaries (Cambridge, MDBG, Yabla, and Facebook AI) we used in this project.
 
     - `dictionary/golden_set`: A directory containing the Python code used to combine the four individual translation dictionaries into the full, final dictionary we used for model training, and the translation dictionary itself.
+    - `dictionary/*/* Scrapers`: Directories containing the Python code used to scrape online dictionaries.
     - `dictionary/*/JSON Data`: A directory containing the unique English-Mandarin translations scraped from that dictionary. 
 
-- `enzh_encoder_decoder/`: A directory containing
+- `code/`: A directory containing the Python code to train the Chinese to Chinese Autoencoder as well as the English to Chinese Encoder Decoder model.
    
 
 # Note
