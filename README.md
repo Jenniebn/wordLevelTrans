@@ -2,7 +2,7 @@
 Josephine Kaminaga, Jennie Wu, Daniel Yeung
 
 <p align="center">
-    <img alt="architecture" src="./static/architecture.png">
+    <img alt="architecture" src="./static/architecture.jpg">
 </p>
 
 # Setup
