@@ -46,11 +46,11 @@ cd ..
 - `dictionary/`: A directory containing all the scripts needed to scrape and process the 4 online dictionaries (Cambridge, MDBG, Yabla, and Facebook AI) we used.
 
     - `dictionary/golden_set`: A directory containing the Python code used to combine the four individual translation dictionaries into the full, final dictionary we used for model training, and the translation dictionary itself.
-    - `dictionary/*/* Scrapers`: Directories containing the Python code used to scrape online dictionaries.
-    - `dictionary/*/JSON Data`: A directory containing the unique English-Mandarin translations scraped from that dictionary. 
+    - `dictionary/**/* Scrapers`: Directories containing the Python code used to scrape online dictionaries.
+    - `dictionary/**/JSON Data`: A directory containing the unique English-Mandarin translations scraped from that dictionary. 
 
 - `code/`: A directory containing the Python code to train the Chinese to Chinese Autoencoder as well as the English to Chinese Encoder Decoder model.
-- `notebook/`: A directory containing the original development Google Colab notebook, which you could use to run the same thing as the code in `code/`. Note though you need to set up the folder structure. 
+- `notebooks/`: A directory containing the original development Google Colab notebook, which you could use to run the same thing as the code in `code/`. Note though you need to set up the folder structure. 
 - `static/`: A directory containing static files.
 
 # Note
