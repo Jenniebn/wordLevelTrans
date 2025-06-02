@@ -7,17 +7,19 @@ class DataBundle:
     def __init__(self, base_path="../data"):
         self.base_path = base_path
 
-        self.anchors                 = self.json_load("anchors.json")
         self.golden_set              = self.json_load("golden_set.json")
         self.partitiioned_golden_set = self.json_load("partitioned_golden_set.json")
+        self.anchors                 = self.json_binary("anchors.json")
 
-        self.zh_embedding       = self.pkl_load("zh_embedding.pkl")
+        self.pos_weight         = self.pkl_load("pos_weight.pkl")
+
         self.vocab_zh           = self.pkl_load("vocab_zh.pkl")
+        self.zh_embedding       = self.pkl_load("zh_embedding.pkl")
         self.word_to_index_zh   = self.pkl_load("word_to_index_zh.pkl")
         self.idx_to_embed_zh    = self.pkl_load("idx_to_embed_zh.pkl")
         
-        self.en_embedding       = self.pkl_load("en_embedding.pkl")
         self.vocab_en           = self.pkl_load("vocab_en.pkl")
+        self.en_embedding       = self.pkl_load("en_embedding.pkl")
         self.word_to_index_en   = self.pkl_load("word_to_index_en.pkl")
         self.idx_to_embed_en    = self.pkl_load("idx_to_embed_en.pkl")
 
@@ -34,6 +36,10 @@ class DataBundle:
     
     def json_load(self, filename):
         with open(f"{self.base_path}/{filename}", encoding="utf-8-sig") as f:
+            return json.load(f)
+    
+    def json_binary(self, filename):
+        with open(f"{self.base_path}/{filename}", 'rb') as f:
             return json.load(f)
 
 data = DataBundle()
@@ -79,3 +85,29 @@ def collate_batch(batch):
     index_tensor = torch.tensor(index_list, dtype=torch.int64)
 
     return (word_list, index_tensor)
+
+def load_data(train, batch_size):
+    """
+    return train & validation loader if train is True
+    ow return test loader
+    """
+    train_data = TrainData(data.training_data)
+    valid_data = TrainData(data.validation_data)
+    test_data  = TrainData(data.testing_data)
+
+    train_loader = torch.utils.data.DataLoader(dataset=train_data,
+                                                batch_size=batch_size,
+                                                shuffle=True,
+                                                collate_fn=collate_batch)
+    valid_loader = torch.utils.data.DataLoader(dataset=valid_data,
+                                                batch_size=batch_size,
+                                                shuffle=True,
+                                                collate_fn=collate_batch)
+    test_loader  = torch.utils.data.DataLoader(dataset=test_data,
+                                                batch_size=batch_size,
+                                                shuffle=True,
+                                                collate_fn=collate_batch)
+    if train:
+        return train_loader, valid_loader
+    else:
+        return test_loader

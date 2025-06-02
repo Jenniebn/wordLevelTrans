@@ -1,0 +1,5 @@
+train: False
+batch_size: 1
+num_trans: 3
+zhzh_model_path: "../ckpt/zhzhautoencoder.pt"
+enzh_model_path: "../ckpt/enzhencoderdecoder.pt"

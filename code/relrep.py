@@ -21,12 +21,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-This code is adopted from Moschella et al's work: https://github.com/lucmos/relreps?tab=readme-ov-file
+This code is adopted from Moschella et al's work: 
+https://github.com/lucmos/relreps?tab=readme-ov-file, which is under MIT License.
 """
 
 import torch
 import random
 from typing import *
+from dataUtils import data
 import torch.nn.functional as TF
 from pytorch_lightning import seed_everything
 
@@ -139,3 +141,38 @@ class RelativeSpace(LatentSpace):
         """
         super().__init__(encoding_type="relative", vectors=vectors, encoder_name=encoder_name, ids=ids)
         self.anchors: Sequence[int] = anchors
+
+
+def create_latent_space():
+    # Create latent space from absolute embeddings
+    vocab_en = list(data.word_to_index_en.keys())
+    vocab_size_en = len(vocab_en)
+    vocab_zh = list(data.word_to_index_zh.keys())
+    vocab_size_zh = len(vocab_zh)
+
+    NUM_SAMPLES_EN = vocab_size_en
+    en_anchors_ids = data.anchors["en"]
+    en_abs_embedding = torch.FloatTensor(data.en_embedding)
+
+    en_abs_latent_space = LatentSpace(
+        encoding_type="absolute",
+        encoder_name="english abs embedding",
+        vectors=en_abs_embedding,
+        ids=list(range(NUM_SAMPLES_EN)),
+    )
+
+    en_rel_latent_space = en_abs_latent_space.to_relative(anchors=en_anchors_ids)
+
+    NUM_SAMPLES_ZH = vocab_size_zh
+    zh_anchors_ids = data.anchors["zh"]
+    zh_abs_embedding = torch.FloatTensor(data.zh_embedding)
+
+    zh_abs_latent_space = LatentSpace(
+        encoding_type="absolute",
+        encoder_name="chinese abs embedding",
+        vectors=zh_abs_embedding,
+        ids=list(range(NUM_SAMPLES_ZH)),
+    )
+
+    zh_rel_latent_space = zh_abs_latent_space.to_relative(anchors=zh_anchors_ids)
+    return en_rel_latent_space, zh_rel_latent_space

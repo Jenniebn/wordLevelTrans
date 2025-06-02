@@ -1,0 +1,6 @@
+train: True
+lr: 0.01
+batch_size: 512
+num_epochs: 100
+pos_weight: 0.02
+zhzh_model_path: "../ckpt/zhzhautoencoder.pt"

@@ -1,6 +1,6 @@
 import copy
 import torch
-from torch import nn, optim, tensor
+from torch import nn
 
 class ZhZhAutoencoder(nn.Module):
     """

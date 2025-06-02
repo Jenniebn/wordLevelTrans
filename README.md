@@ -1,9 +1,11 @@
 # Aligning Embedding Spaces Across Languages to Identify Word Level Equivalents in the Context of Concreteness and Emotion
-[Josephine Kaminaga](https://www.linkedin.com/in/jkaminaga/) *, [Jingyi Wu](https://www.linkedin.com/in/jennie05/) *, [Daniel Yeung](https://www.linkedin.com/in/daniel-yeung-8060311a5/) *, [Simon Todd](https://sjtodd.github.io/)\
-*euqal contribution
+[OpenReview](https://openreview.net/forum?id=pFJXNDwxrQ) | [BibTeX](#bibtex)
 <p align="center">
     <img alt="architecture" src="./static/architecture.jpg">
 </p>
+
+[Josephine Kaminaga](https://www.linkedin.com/in/jkaminaga/) *, [Jingyi Wu](https://www.linkedin.com/in/jennie05/) *, [Daniel Yeung](https://www.linkedin.com/in/daniel-yeung-8060311a5/) *, [Simon Todd](https://sjtodd.github.io/)\
+*euqal contribution
 
 # Setup
 1. Code
