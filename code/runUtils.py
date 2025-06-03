@@ -45,7 +45,7 @@ class TrainLoop:
         logger.info("Starting training...")
 
         for epoch in range(self.num_epochs):
-            logger.info(f"\nEpoch {epoch} | Progress: {epoch / self.num_epochs:.2%} | Time: {self._time_since(start_time)}")
+            logger.info(f"Epoch {epoch} | Progress: {epoch / self.num_epochs:.2%} | Time: {self._time_since(start_time)}")
 
             train_metrics = self._run_epoch(self.train_loader, is_train=True)
             self.train_loss.append(train_metrics['loss'])
@@ -58,9 +58,9 @@ class TrainLoop:
                 self.valid_eval.append(val_metrics['metrics'])
                 self.jaccard_valid.append(val_metrics['jaccard'])
                 for k, v in val_metrics['metrics'].items():
-                    logger.info(f"  Validation {k}: {v}")
+                    logger.info(f"Validation {k}: {v}")
 
-            self.scheduler_step(epoch)
+            self.scheduler_step()
             self.save_model(epoch)
         logger.info("Training complete.")
 
@@ -97,14 +97,14 @@ class TrainLoop:
 
         avg_loss = total_loss / len(loader)
         metrics = self.evalCalc_fn(tp, fp, fn, macro, jaccard, mode)
-        logger.info(f"  {mode.capitalize()} Loss: {avg_loss:.4f}")
+        logger.info(f"{mode.capitalize()} Loss: {avg_loss:.4f}")
         return {"loss": avg_loss, "metrics": metrics, "jaccard": jaccard}
 
-    def scheduler_step(self, epoch):
-        if self.scheduler:
-            for group in self.optimizer.param_groups:
-                group['lr'] = self.scheduler(epoch)
-                logger.info(f"  Learning Rate: {group['lr']:.6f}")
+    def scheduler_step(self):
+        self.scheduler.step()  
+        for group in self.optimizer.param_groups:
+            logger.info(f"Learning Rate: {group['lr']:.6f}")
+
 
     def save_model(self, epoch):
         torch.save({

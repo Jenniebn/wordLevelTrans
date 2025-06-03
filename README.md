@@ -41,7 +41,7 @@ cd ..
 
 5. Run code
 ```
-python3 test.py --conf_path confs/test.yaml
+python code/test.py --conf_path confs/test.yaml
 ```
 Find the output in ./output/timestamped
 

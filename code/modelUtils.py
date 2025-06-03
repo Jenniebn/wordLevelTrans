@@ -70,15 +70,15 @@ class EnZhEncoderDeocder(nn.Module):
         one_hot = zh_emb @ self.decoder
         return one_hot + self.bias
     
-def create_models(zh_rel_latent_space, en_rel_latent_space, zhzh_model_path):
+def create_models(zh_rel_latent_space, en_rel_latent_space, zhzh_model_path, device):
     """
     Instantiate the models
     """
-    zhzh_model = ZhZhAutoencoder(zh_rel_latent_space)
+    zhzh_model = ZhZhAutoencoder(zh_rel_latent_space).to(device)
     state      = torch.load(zhzh_model_path)
     zhzh_model.load_state_dict(state['model_state_dict'])
 
     zhzh_model_decoder = zhzh_model.decoder.clone()
-    enzh_model         = EnZhEncoderDeocder(en_rel_latent_space, zhzh_model_decoder)
-    
+    enzh_model         = EnZhEncoderDeocder(en_rel_latent_space, zhzh_model_decoder).to(device)
+
     return zhzh_model, enzh_model

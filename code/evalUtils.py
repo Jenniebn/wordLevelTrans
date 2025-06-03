@@ -62,11 +62,11 @@ def evalCalc(EPOCH_TP, EPOCH_FP, EPOCH_FN, EPOCH_MACRO, JACCARD, TYPE):
 
     # Jaccard metric
     if (TYPE == "training"):
-        j_metric = float(len(JACCARD & data.training_index)) / float(len(JACCARD | data.training_index))
+        j_metric = float(len(JACCARD & set(data.training_index))) / float(len(JACCARD | set(data.training_index)))
     elif (TYPE == "validation"):
-        j_metric = float(len(JACCARD & data.validation_index)) / float(len(JACCARD | data.validation_index))
+        j_metric = float(len(JACCARD & set(data.validation_index))) / float(len(JACCARD | set(data.validation_index)))
     elif (TYPE == "testing"):
-        j_metric = float(len(JACCARD & data.testing_index)) / float(len(JACCARD | data.testing_index))
+        j_metric = float(len(JACCARD & set(data.testing_index))) / float(len(JACCARD | set(data.testing_index)))
 
     evaluation["precision_micro"] = precision_micro
     evaluation["recall_micro"]    = recall_micro
