@@ -40,13 +40,17 @@ cd ..
 ```
 
 5. Run code
+```
+python3 test.py --conf_path confs/test.yaml
+```
+Find the output in ./output/timestamped
 
 # GitHub Contents
 
 - `dictionary/`: A directory containing all the scripts needed to scrape and process the 4 online dictionaries (Cambridge, MDBG, Yabla, and Facebook AI) we used.
 
-    - `dictionary/golden_set`: A directory containing the Python code used to combine the four individual translation dictionaries into the full, final dictionary we used for model training, and the translation dictionary itself.
-    - `dictionary/**/* Scrapers`: Directories containing the Python code used to scrape online dictionaries.
+    - `dictionary/golden_set`: A directory containing notebooks used to combine the four individual translation dictionaries into the full, final dictionary we used for model training, and the translation dictionary itself.
+    - `dictionary/**/* Scrapers`: Directories containing notebooks used to scrape online dictionaries.
     - `dictionary/**/JSON Data`: A directory containing the unique English-Mandarin translations scraped from that dictionary. 
 
 - `code/`: A directory containing the Python code to train the Chinese to Chinese Autoencoder as well as the English to Chinese Encoder Decoder model.
@@ -69,5 +73,5 @@ To run the scripts in `dictionary/`, please expect taking around 8 hours to full
 
 # Acknowledgement
 We'd like to thank Professor Todd for his insightful instructions.\
-This repository is based on [relreps](https://github.com/lucmos/relreps?tab=readme-ov-file) from Moschella et al and [Tecent AI Lab](https://ai.tencent.com/ailab/nlp/en/embedding.html).\
+This repository is based on [relreps](https://github.com/lucmos/relreps?tab=readme-ov-file) from Moschella et al. and [Tecent AI Lab](https://ai.tencent.com/ailab/nlp/en/embedding.html).\
 This work is supported by [UCSB URCA grant](https://urca.ucsb.edu/urca-grant/overview). 

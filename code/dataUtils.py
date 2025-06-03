@@ -23,6 +23,11 @@ class DataBundle:
         self.word_to_index_en   = self.pkl_load("word_to_index_en.pkl")
         self.idx_to_embed_en    = self.pkl_load("idx_to_embed_en.pkl")
 
+        self.vocab_en = list(self.word_to_index_en.keys())
+        self.vocab_size_en = len(self.vocab_en)
+        self.vocab_zh = list(self.word_to_index_zh.keys())
+        self.vocab_size_zh = len(self.vocab_zh)
+
         self.training_data      = self.pkl_load("training_data.pkl")
         self.validation_data    = self.pkl_load("validation_data.pkl")
         self.testing_data       = self.pkl_load("testing_data.pkl")
@@ -86,9 +91,9 @@ def collate_batch(batch):
 
     return (word_list, index_tensor)
 
-def load_data(train, batch_size):
+def load_data(prefix, batch_size):
     """
-    return train & validation loader if train is True
+    return train & validation loader for training
     ow return test loader
     """
     train_data = TrainData(data.training_data)
@@ -107,7 +112,7 @@ def load_data(train, batch_size):
                                                 batch_size=batch_size,
                                                 shuffle=True,
                                                 collate_fn=collate_batch)
-    if train:
+    if prefix == "Train":
         return train_loader, valid_loader
     else:
         return test_loader
