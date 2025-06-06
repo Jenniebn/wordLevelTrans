@@ -28,14 +28,11 @@ pip install --upgrade gdown && bash ./download.sh
 ```
 This downloads all the preprocessed data and model checkpoint that produces the paper results. Note that some of the files in `data/` are preprocessed from pretrained Tencent AI Lab embeddings, which are no longer available publicly. However, we provide them as downloadable here. We also provide the one after cutting out the infrequent words, which reduces the file size from approximately 1.7GB to 80MB.
 ```
-mkdir -p tencent_embedding
-cd tencent_embedding
-# ORIGINAL
-gdown https://drive.google.com/file/d/1qyuY0Lq6pu-2wXJyvimP1_YN8o3nW15E/view?usp=drive_link
-gdown https://drive.google.com/file/d/108uK_BSVKLPM-Mz5spCa4kWQKWUqXNvg/view?usp=drive_link
-# CUT
-gdown https://drive.google.com/file/d/1lXwEEcxvoCmg9-v8Tr3ReV10CM7YIU08/view?usp=drive_link
-gdown https://drive.google.com/file/d/1NSHW9H0msSiBGRU98d7Q0DyfI1KJgJEG/view?usp=drive_link
+mkdir -p tencent
+cd tencent
+```
+Go the the [Google Drive](https://drive.google.com/drive/folders/1Z5IqMoiqeQmKJvJIPzlf8gEcLtswzV8z?usp=sharing) and download the files.
+```
 cd ..
 ```
 
