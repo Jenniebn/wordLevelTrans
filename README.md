@@ -40,7 +40,7 @@ cd ..
 ```
 python code/test.py --conf_path confs/test.yaml
 ```
-Find the output in ./output/timestamped. To translate any English word in the golden set, run following:
+Find the output in `./output/timestamped`. To translate any English word in the golden set, run following:
 ```
 python code/test.py --conf_path confs/test.yaml --en_word cantaloupe
 ```
