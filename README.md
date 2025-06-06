@@ -8,7 +8,7 @@
 *euqal contribution, authors listed in alphabetical order
 
 # Setup
-1. Code
+1. Clone the repo
 ```
 git clone https://github.com/Jenniebn/wordLevelTrans.git
 cd wordLevelTrans
@@ -62,7 +62,7 @@ python code/train.py --conf_path confs/train.yaml --help_config
     - `dictionary/**/* Scrapers`: Directories containing notebooks used to scrape online dictionaries.
     - `dictionary/**/JSON Data`: A directory containing the unique English-Mandarin translations scraped from that dictionary. 
 
-- `code/`: A directory containing the Python code to train and test the Chinese to Chinese Autoencoder as well as the English to Chinese Encoder Decoder model.
+- `code/`: A directory containing the Python code to train and test the English to Chinese Encoder Decoder model.
 - `notebooks/`: A directory containing the original development Google Colab notebooks, which you could use to run the same thing as the code in `code/`. Note though you need to set up the folder structure. 
 - `static/`: A directory containing static files.
 

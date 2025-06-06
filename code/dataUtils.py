@@ -161,26 +161,34 @@ def load_data(
         valid_data = EnZhTrainData(data.validation_data)
         test_data  = EnZhTrainData(data.testing_data)
 
-        train_loader = torch.utils.data.DataLoader(dataset=train_data,
-                                                    batch_size=batch_size,
-                                                    shuffle=True,
-                                                    collate_fn=enzh_collate_fn)
-        valid_loader = torch.utils.data.DataLoader(dataset=valid_data,
-                                                    batch_size=batch_size,
-                                                    shuffle=True,
-                                                    collate_fn=enzh_collate_fn)
-        test_loader  = torch.utils.data.DataLoader(dataset=test_data,
-                                                    batch_size=batch_size,
-                                                    shuffle=True,
-                                                    collate_fn=enzh_collate_fn)
+        train_loader = torch.utils.data.DataLoader(
+            dataset=train_data,
+            batch_size=batch_size,
+            shuffle=True,
+            collate_fn=enzh_collate_fn
+        )
+        valid_loader = torch.utils.data.DataLoader(
+            dataset=valid_data,
+            batch_size=batch_size,
+            shuffle=True,
+            collate_fn=enzh_collate_fn
+        )
+        test_loader  = torch.utils.data.DataLoader(
+            dataset=test_data,
+            batch_size=batch_size,
+            shuffle=True,
+            collate_fn=enzh_collate_fn
+        )
         if prefix == "Train":
             return train_loader, valid_loader, test_loader
         else:
             return test_loader
     else:
         training_data = ZhZhTrainData(data.vocab_zh)
-        train_loader = torch.utils.data.DataLoader(dataset=training_data,
-                                                batch_size=batch_size,
-                                                shuffle=True,
-                                                collate_fn=zhzh_collate_fn)
+        train_loader = torch.utils.data.DataLoader(
+            dataset=training_data,
+            batch_size=batch_size,
+            shuffle=True,
+            collate_fn=zhzh_collate_fn
+        )
         return train_loader
