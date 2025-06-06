@@ -39,11 +39,20 @@ gdown https://drive.google.com/file/d/1NSHW9H0msSiBGRU98d7Q0DyfI1KJgJEG/view?usp
 cd ..
 ```
 
-5. Run code
+5. Run code on the provided test set
 ```
 python code/test.py --conf_path confs/test.yaml
 ```
-Find the output in ./output/timestamped
+Find the output in ./output/timestamped. To translate any English word in the golden set, run following:
+```
+python code/test.py --conf_path confs/test.yaml --en_word cantaloupe
+```
+Note the command will throw an error if the provided English word is not inside the `data/golden_set.json`. Use `SHIFT` + `OPTION` + `F` to fomat the JSON file for Mac or `ALT` + `SHIFT` + `F` for Windows to see the list of translatable English words.
+
+6. To see descriptions for the available flags, run
+```
+python code/train.py --conf_path confs/train.yaml --help_config
+```
 
 # GitHub Contents
 

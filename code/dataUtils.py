@@ -8,7 +8,7 @@ class DataBundle:
         self.base_path = base_path
 
         self.golden_set              = self.json_load("golden_set.json")
-        self.partitiioned_golden_set = self.json_load("partitioned_golden_set.json")
+        self.partitioned_golden_set = self.json_load("partitioned_golden_set.json")
         self.anchors                 = self.json_binary("anchors.json")
 
         self.concrete_emotion_label  = self.partitioned_golden_set['concrete']['emotion_label']

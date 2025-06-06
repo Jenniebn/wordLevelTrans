@@ -93,7 +93,7 @@ def create_models(
     enzh_model = EnZhEncoderDeocder(en_rel_latent_space, zhzh_model_decoder).to(device) 
 
     if prefix == "Test":
-        state = torch.load(enzh_model_path, map_location=torch.device(device))
+        state = torch.load(enzh_model_path, map_location=torch.device(device), weights_only=False)
         enzh_model.load_state_dict(state['model_state_dict'])
     
     return zhzh_model, enzh_model

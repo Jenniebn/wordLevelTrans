@@ -1,6 +1,6 @@
 prefix: "Test"
 batch_size: 1
-num_trans: 3
+num_trans: default
 pos_weight: 0.02
 zhzh_model_path: "./ckpt/zhzhautoencoder.pt"
 enzh_model_path: "./ckpt/enzhencoderdecoder.pt"

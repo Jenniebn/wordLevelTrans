@@ -1,6 +1,6 @@
 import os
+import sys
 import time
-import yaml
 import logging
 import argparse
 
@@ -43,10 +43,13 @@ def main(conf):
     pos_weight = torch.tensor(pos_weight, dtype=torch.float32).to(conf["device"])
     
     logger.info("Creating models")
-    zhzh_model, enzh_model = create_models(
+    _, enzh_model = create_models(
         zh_rel_latent_space, 
         en_rel_latent_space, 
-        **conf
+        conf["prefix"],
+        conf["zhzh_model_path"], 
+        None,
+        conf["device"]
     )
 
     optimizer = torch.optim.Adam(enzh_model.parameters(), lr=conf["base_lr"])
@@ -57,10 +60,10 @@ def main(conf):
         eta_min=conf["final_lr"]
     )
 
-    logger.info("Creating data loader")
+    logger.info("Creating data loaders")
     train_loader, valid_loader, test_loader = load_data(
         conf["prefix"], 
-        conf["batch_size"]
+        conf["batch_size"], 
     )
 
     save_path = os.path.join(HISTORY_PATH, conf["save_name"])
@@ -73,11 +76,12 @@ def main(conf):
         train_loader, 
         valid_loader,
         test_loader, 
-        data.vocab_size_zh,
         eval, 
         evalCalc,
         save_path,
-        **conf
+        conf["device"],
+        conf["num_epochs"],
+        conf["save_every"]
     )
 
     trainer.run()
@@ -85,7 +89,16 @@ def main(conf):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--conf_path', type=str, required=False, default=None)
+    parser.add_argument('--help_config', action='store_true', help='Print help for config keys')
     args = vars(parser.parse_args())
+
+    if args.get('help_config'):
+        if args.get('conf_path') is None:
+            print("Please provide --conf_path to use --help_config.")
+            sys.exit(0)
+        print_yaml_help(args['conf_path'])
+        sys.exit(0)
+
     args.update(yamlread(args.get('conf_path')))
     args['device'] = DEVICE
 

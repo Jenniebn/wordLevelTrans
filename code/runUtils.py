@@ -3,6 +3,9 @@ import torch
 import pickle
 import logging
 from tqdm import tqdm
+import numpy as np
+
+from dataUtils import data
 
 logger = logging.getLogger(__name__) 
 
@@ -16,7 +19,6 @@ class TrainLoop:
         train_loader, 
         valid_loader,
         test_loader, 
-        vocab_size_zh, 
         eval_fn,
         evalCalc_fn,
         save_path,
@@ -34,7 +36,6 @@ class TrainLoop:
         self.test_loader = test_loader
         self.device = device
         self.num_epochs = num_epochs
-        self.vocab_size_zh = vocab_size_zh
         self.eval_fn = eval_fn
         self.evalCalc_fn = evalCalc_fn
         self.save_path = save_path
@@ -95,7 +96,7 @@ class TrainLoop:
         self.model.train() if is_train else self.model.eval()
 
         total_loss = 0
-        macro = torch.zeros((3, self.vocab_size_zh))
+        macro = torch.zeros((3, data.vocab_size_zh))
         tp = fp = fn = 0
         jaccard = set()
 
@@ -152,3 +153,56 @@ class TrainLoop:
         mins = int(elapsed // 60)
         secs = int(elapsed % 60)
         return f"{mins}m {secs}s"
+
+class TranslateLoop:
+    def __init__(
+        self, 
+        model, 
+        test_loader, 
+        hist_file,
+        device,
+        num_trans,
+        en_word
+    ):
+        self.model  = model
+        self.device = device
+        self.en_word = en_word
+        self.num_trans   = num_trans
+        self.test_loader = test_loader
+        self.history_file = hist_file
+
+    def run(self):
+        print("Begin translating...", file=open(self.history_file, 'a'))
+        self.model.eval()
+        with torch.no_grad():
+            if self.en_word == None:
+                loop = tqdm(enumerate(self.test_loader), total=len(self.test_loader), leave=False)
+                for batch_idx, (en_index, _) in loop:
+                    self._translate_step(en_index)
+                    loop.set_description(f"Translation [{batch_idx}/{len(self.test_loader)}]")
+            else:
+                try:
+                    en_index  = torch.tensor(data.word_to_index_en[self.en_word])
+                    self._translate_step(en_index)
+                except:
+                    message = "The English word does not exist in golden_set.json. Please double check the file and choose another one."
+                    logger.error(message, stack_info=True, exc_info=True)
+
+        print("Translation complete.", file=open(self.history_file, 'a'))
+
+    def _translate_step(self, en_index):
+        en_index = en_index.to(self.device)
+
+        output = self.model(en_index).sigmoid().detach().cpu()
+        en_word = data.vocab_en[en_index.cpu()]
+        correct_trans = data.golden_set[en_word]
+        if self.num_trans == "all":
+            pred  = (output[0]>=0.5).int().numpy()
+            idx   = list(np.where(pred==1)[0])
+        else:
+            num = len(correct_trans) if self.num_trans == "default" else int(self.num_trans)
+            idx = torch.topk(output[0], num)[1].tolist()
+       
+        pred_words = [data.vocab_zh[i] for i in idx]
+
+        print(f"{en_word}\n  → Model Translation: {', '.join(pred_words)}\n  → Correct Translation: {', '.join(correct_trans)}", file=open(self.history_file, 'a'))
