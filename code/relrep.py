@@ -70,7 +70,12 @@ class LatentSpace:
         self.ids: Sequence[int] = ids
         self.encoder_name: str = encoder_name
 
-    def get_anchors(self, anchor_choice: str, num_anchors: int, seed: int) -> Sequence[int]:
+    def get_anchors(
+        self, 
+        anchor_choice: str, 
+        num_anchors: int, 
+        seed: int
+    ) -> Sequence[int]:
         """Adopt some strategy to select the anchors.
 
         Args:
@@ -102,7 +107,10 @@ class LatentSpace:
         return result
 
     def to_relative(
-        self, anchor_choice: str = None, seed: int = None, anchors: Optional[Sequence[int]] = None
+        self, 
+        anchor_choice: str = None, 
+        seed: int = None, 
+        anchors: Optional[Sequence[int]] = None
     ) -> "RelativeSpace":
         """Compute the relative transformation on the current space returning a new one.
 
@@ -144,7 +152,7 @@ class RelativeSpace(LatentSpace):
 
 
 def create_latent_space():
-    # Create latent space from absolute embeddings
+    """Create latent space from absolute embeddings"""
 
     NUM_SAMPLES_EN = data.vocab_size_en
     en_anchors_ids = data.anchors["en"]

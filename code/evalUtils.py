@@ -3,7 +3,11 @@ import numpy as np
 from dataUtils import data
 
 # credit: https://gist.github.com/the-bass/cae9f3976866776dea17a5049013258d
-def eval(prediction, truth, threshold=0.5):
+def eval(
+    prediction, 
+    truth, 
+    threshold=0.5
+):
     """ Returns the confusion matrix for the values in the `prediction` and `truth`
     tensors, i.e. the amount of positions where the values of `prediction`
     and `truth` are
@@ -32,7 +36,17 @@ def eval(prediction, truth, threshold=0.5):
     INDICES = set(np.where(jaccard==1)[1])
     return TP, FP, FN, BATCH_MACRO, INDICES
 
-def evalCalc(EPOCH_TP, EPOCH_FP, EPOCH_FN, EPOCH_MACRO, JACCARD, TYPE):
+def evalCalc(
+    EPOCH_TP, 
+    EPOCH_FP, 
+    EPOCH_FN, 
+    EPOCH_MACRO, 
+    JACCARD, 
+    TYPE
+):
+    """
+    Calculate the micro and macro precision, recall, f1 metrics
+    """
     evaluation = {}
     # Metric calc - micro
     if (EPOCH_FP+EPOCH_TP==0) or (EPOCH_FN+EPOCH_TP==0) or (EPOCH_TP==0):

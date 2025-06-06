@@ -40,17 +40,28 @@ def main(conf):
     en_rel_latent_space, zh_rel_latent_space = create_latent_space()
 
     pos_weight = np.where(data.pos_weight != 1, data.pos_weight * conf["pos_weight"], data.pos_weight)
-    pos_weight = torch.tensor(pos_weight, dtype=torch.float32).to(DEVICE)
+    pos_weight = torch.tensor(pos_weight, dtype=torch.float32).to(conf["device"])
     
     logger.info("Creating models")
-    zhzh_model, enzh_model = create_models(zh_rel_latent_space, en_rel_latent_space, conf["zhzh_model_path"], DEVICE)
+    zhzh_model, enzh_model = create_models(
+        zh_rel_latent_space, 
+        en_rel_latent_space, 
+        **conf
+    )
 
     optimizer = torch.optim.Adam(enzh_model.parameters(), lr=conf["base_lr"])
     criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
-    scheduler = CosineAnnealingLR(optimizer, T_max=conf["num_epochs"], eta_min=conf["final_lr"])
+    scheduler = CosineAnnealingLR(
+        optimizer, 
+        T_max=conf["num_epochs"], 
+        eta_min=conf["final_lr"]
+    )
 
     logger.info("Creating data loader")
-    train_loader, valid_loader = load_data(conf["prefix"], conf["batch_size"])
+    train_loader, valid_loader, test_loader = load_data(
+        conf["prefix"], 
+        conf["batch_size"]
+    )
 
     save_path = os.path.join(HISTORY_PATH, conf["save_name"])
 
@@ -61,12 +72,12 @@ def main(conf):
         scheduler,
         train_loader, 
         valid_loader,
-        DEVICE, 
-        conf["num_epochs"], 
+        test_loader, 
         data.vocab_size_zh,
         eval, 
         evalCalc,
-        save_path
+        save_path,
+        **conf
     )
 
     trainer.run()
@@ -76,5 +87,6 @@ if __name__ == "__main__":
     parser.add_argument('--conf_path', type=str, required=False, default=None)
     args = vars(parser.parse_args())
     args.update(yamlread(args.get('conf_path')))
+    args['device'] = DEVICE
 
     main(args)

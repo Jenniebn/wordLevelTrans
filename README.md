@@ -5,7 +5,7 @@
 </p>
 
 [Josephine Kaminaga](https://www.linkedin.com/in/jkaminaga/) *, [Jingyi Wu](https://www.linkedin.com/in/jennie05/) *, [Daniel Yeung](https://www.linkedin.com/in/daniel-yeung-8060311a5/) *, [Simon Todd](https://sjtodd.github.io/)\
-*euqal contribution
+*euqal contribution, authors listed in alphabetical order
 
 # Setup
 1. Code
@@ -26,10 +26,10 @@ pip install -r requirements.txt
 ```
 pip install --upgrade gdown && bash ./download.sh
 ```
-This downloads all the preprocessed data and model checkpoint. Note that some of the files in `data/` are preprocessed from pretrained Tencent AI Lab embeddings, which are no longer available publicly. However, we provide them as downloadable here. We also provide the one after cutting out the infrequent words, which reduces the file size from approximately 1.7GB to 80MB.
+This downloads all the preprocessed data and model checkpoint that produces the paper results. Note that some of the files in `data/` are preprocessed from pretrained Tencent AI Lab embeddings, which are no longer available publicly. However, we provide them as downloadable here. We also provide the one after cutting out the infrequent words, which reduces the file size from approximately 1.7GB to 80MB.
 ```
-mkdir -p tencent_embed
-cd tencent_embed
+mkdir -p tencent_embedding
+cd tencent_embedding
 # ORIGINAL
 gdown https://drive.google.com/file/d/1qyuY0Lq6pu-2wXJyvimP1_YN8o3nW15E/view?usp=drive_link
 gdown https://drive.google.com/file/d/108uK_BSVKLPM-Mz5spCa4kWQKWUqXNvg/view?usp=drive_link
@@ -53,8 +53,8 @@ Find the output in ./output/timestamped
     - `dictionary/**/* Scrapers`: Directories containing notebooks used to scrape online dictionaries.
     - `dictionary/**/JSON Data`: A directory containing the unique English-Mandarin translations scraped from that dictionary. 
 
-- `code/`: A directory containing the Python code to train the Chinese to Chinese Autoencoder as well as the English to Chinese Encoder Decoder model.
-- `notebooks/`: A directory containing the original development Google Colab notebook, which you could use to run the same thing as the code in `code/`. Note though you need to set up the folder structure. 
+- `code/`: A directory containing the Python code to train and test the Chinese to Chinese Autoencoder as well as the English to Chinese Encoder Decoder model.
+- `notebooks/`: A directory containing the original development Google Colab notebooks, which you could use to run the same thing as the code in `code/`. Note though you need to set up the folder structure. 
 - `static/`: A directory containing static files.
 
 # Note

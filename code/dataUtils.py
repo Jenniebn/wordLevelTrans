@@ -11,6 +11,16 @@ class DataBundle:
         self.partitiioned_golden_set = self.json_load("partitioned_golden_set.json")
         self.anchors                 = self.json_binary("anchors.json")
 
+        self.concrete_emotion_label  = self.partitioned_golden_set['concrete']['emotion_label']
+        self.concrete_emotion_laden  = self.partitioned_golden_set['concrete']['emotion_laden']
+        self.concrete_other          = self.partitioned_golden_set['concrete']['other']
+        self.abstract_emotion_label  = self.partitioned_golden_set['abstract']['emotion_label']
+        self.abstract_emotion_laden  = self.partitioned_golden_set['abstract']['emotion_laden']
+        self.abstract_other          = self.partitioned_golden_set['abstract']['other']
+        self.unknown_emotion_label   = self.partitioned_golden_set['unknown_abstraction']['emotion_label']
+        self.unknown_emotion_laden   = self.partitioned_golden_set['unknown_abstraction']['emotion_laden']
+        self.unknown_other           = self.partitioned_golden_set['unknown_abstraction']['other']
+
         self.pos_weight         = self.pkl_load("pos_weight.pkl")
 
         self.vocab_zh           = self.pkl_load("vocab_zh.pkl")
@@ -137,7 +147,11 @@ def zhzh_collate_fn(batch):
 
     return (word_list, index_tensor)
 
-def load_data(prefix, batch_size, model="enzh"):
+def load_data(
+    prefix, 
+    batch_size, 
+    model="enzh"
+):
     """
     return train & validation loader for training
     ow return test loader
@@ -160,7 +174,7 @@ def load_data(prefix, batch_size, model="enzh"):
                                                     shuffle=True,
                                                     collate_fn=enzh_collate_fn)
         if prefix == "Train":
-            return train_loader, valid_loader
+            return train_loader, valid_loader, test_loader
         else:
             return test_loader
     else:

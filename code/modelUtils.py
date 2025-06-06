@@ -37,7 +37,11 @@ class EnZhEncoderDeocder(nn.Module):
     Encoder Decoder to translate English words to Chinese words
     """
     
-    def __init__(self, pretrained_en, pretrained_zh):
+    def __init__(
+        self, 
+        pretrained_en, 
+        pretrained_zh
+    ):
         super(EnZhEncoderDeocder, self).__init__()
 
         # Save the pretrained English embedding from Tencent within the model
@@ -70,15 +74,26 @@ class EnZhEncoderDeocder(nn.Module):
         one_hot = zh_emb @ self.decoder
         return one_hot + self.bias
     
-def create_models(zh_rel_latent_space, en_rel_latent_space, zhzh_model_path, device):
+def create_models(
+    zh_rel_latent_space, 
+    en_rel_latent_space, 
+    prefix,
+    zhzh_model_path, 
+    enzh_model_path,
+    device
+): 
     """
     Instantiate the models
     """
     zhzh_model = ZhZhAutoencoder(zh_rel_latent_space).to(device)
-    state      = torch.load(zhzh_model_path)
+    state      = torch.load(zhzh_model_path, map_location=torch.device(device))
     zhzh_model.load_state_dict(state['model_state_dict'])
 
     zhzh_model_decoder = zhzh_model.decoder.clone()
-    enzh_model         = EnZhEncoderDeocder(en_rel_latent_space, zhzh_model_decoder).to(device)
+    enzh_model = EnZhEncoderDeocder(en_rel_latent_space, zhzh_model_decoder).to(device) 
 
+    if prefix == "Test":
+        state = torch.load(enzh_model_path, map_location=torch.device(device))
+        enzh_model.load_state_dict(state['model_state_dict'])
+    
     return zhzh_model, enzh_model
