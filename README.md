@@ -53,15 +53,17 @@ python code/train.py --conf_path confs/train.yaml --help_config
 
 # GitHub Contents
 
-- `dictionary/`: A directory containing all the scripts needed to scrape and process the 4 online dictionaries (Cambridge, MDBG, Yabla, and Facebook AI) we used.
+- `code/`: the Python code to train and test the English to Chinese Encoder Decoder model.
+- `confs/` configuration files for training and translation tasks.
+- `dictionary/`: all the scripts needed to scrape and process the 4 online dictionaries (Cambridge, MDBG, Yabla, and Facebook AI) we used.
 
-    - `dictionary/golden_set`: A directory containing notebooks used to combine the four individual translation dictionaries into the full, final dictionary we used for model training, and the translation dictionary itself.
+    - `dictionary/golden_set`: notebooks used to combine the four individual translation dictionaries into the full, final dictionary we used for model training, and the translation dictionary itself.
     - `dictionary/**/* Scrapers`: Directories containing notebooks used to scrape online dictionaries.
-    - `dictionary/**/JSON Data`: A directory containing the unique English-Mandarin translations scraped from that dictionary. 
+    - `dictionary/**/JSON Data`: the unique English-Mandarin translations scraped from that dictionary. 
 
-- `code/`: A directory containing the Python code to train and test the English to Chinese Encoder Decoder model.
-- `notebooks/`: A directory containing the original development Google Colab notebooks, which you could use to run the same thing as the code in `code/`. Note though you need to set up the folder structure. 
-- `static/`: A directory containing static files.
+
+- `notebooks/`: the original development Google Colab notebooks, which you could use to run the same thing as the code in `code/`. Note though you need to set up the folder structure. 
+- `static/`: static files.
 
 # Note
 To run the scripts in `dictionary/`, please expect taking around 8 hours to fully execute as they each request around 100k webpages from various online dictionaries.
