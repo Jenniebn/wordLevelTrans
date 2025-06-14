@@ -80,6 +80,6 @@ To run the scripts in `dictionary/`, please expect taking around 8 hours to full
 ```
 
 # Acknowledgement
-We'd like to thank Professor Todd for his insightful instructions.\
+We'd like to thank Professor Simon Todd and Mary Bucholtz for their insightful instructions.\
 This repository is based on [relreps](https://github.com/lucmos/relreps?tab=readme-ov-file) from Moschella et al. and [Tecent AI Lab](https://ai.tencent.com/ailab/nlp/en/embedding.html).\
-This work is supported by [UCSB URCA grant](https://urca.ucsb.edu/urca-grant/overview). 
+This work is funded by [UCSB URCA Grant](https://urca.ucsb.edu/urca-grant/overview) FR-2023-918. 
