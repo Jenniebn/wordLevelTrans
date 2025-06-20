@@ -31,7 +31,7 @@ This downloads all the preprocessed data and model checkpoint that produces the 
 mkdir -p tencent
 cd tencent
 ```
-Go the the [Google Drive](https://drive.google.com/drive/folders/1Z5IqMoiqeQmKJvJIPzlf8gEcLtswzV8z?usp=sharing) and download the files.
+Go to the [Google Drive](https://drive.google.com/drive/folders/1Z5IqMoiqeQmKJvJIPzlf8gEcLtswzV8z?usp=sharing) and download the files.
 ```
 cd ..
 ```
