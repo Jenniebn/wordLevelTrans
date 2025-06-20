@@ -1,5 +1,5 @@
 # Aligning Embedding Spaces Across Languages to Identify Word Level Equivalents in the Context of Concreteness and Emotion
-[OpenReview](https://openreview.net/forum?id=pFJXNDwxrQ) | [BibTeX](#bibtex)
+[Poster](https://drive.google.com/file/d/1aqCGrOMgCGfCBU_fzNCMtrLSxKoktHV0/view?usp=sharing) | [OpenReview](https://openreview.net/forum?id=pFJXNDwxrQ) | [BibTeX](#bibtex)
 <p align="center">
     <img alt="architecture" src="./static/architecture.jpg">
 </p>
